@@ -1,10 +1,11 @@
 .PHONY: install lint test all
 
 install:
-	uv sync
+	uv sync --locked
 
 lint:
 	uv run ruff check .
+	uv run ruff format --check .
 	uv run mypy --strict src/
 
 test:
