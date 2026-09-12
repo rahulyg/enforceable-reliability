@@ -6,6 +6,8 @@
 
 > **Status: proposed design.** Nothing in this document has been implemented, run, or measured. Every architecture, metric, and guarantee described here is a commitment to be built and tested. Numeric values below are illustrative worked examples or citations to external published work — never results from this project.
 
+The implementation workflow and initial notebook mapping are recorded separately in [ADR 0001: Notebook strategy](decisions/0001-notebook-strategy.md).
+
 ---
 
 ## 2. What this project investigates
