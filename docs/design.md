@@ -4,7 +4,7 @@
 
 *A forecasting substrate, three progressively constrained answer architectures, and an evaluation harness that measures what each constraint actually buys.*
 
-> **Status: proposed design.** Nothing in this document has been implemented, run, or measured. Every architecture, metric, and guarantee described here is a commitment to be built and tested. Numeric values below are illustrative worked examples or citations to external published work — never results from this project.
+> **Status: proposed design.** A Phase 0 synthetic walking skeleton exists: one fixture-backed seasonal-naive forecast flows through MAE, addressable evidence, Arm A delegation, and a smoke runner. It is plumbing verification only, not an evaluation, reliability result, or forecast-quality result. Every future architecture, metric, and guarantee described here remains a commitment to be built and tested. Numeric values below are illustrative worked examples or citations to external published work — never results from this project.
 
 The implementation workflow and initial notebook mapping are recorded separately in [ADR 0001: Notebook strategy](decisions/0001-notebook-strategy.md).
 

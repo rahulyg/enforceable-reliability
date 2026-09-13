@@ -1,6 +1,6 @@
 # Notebooks
 
-Notebooks are exploratory and demonstrative artifacts. Reusable, tested production code belongs in `src/` and `tests/`.
+Notebooks are exploratory and demonstrative artifacts. Reusable, tested production code belongs in `src/` and `tests/`. `00_walking_skeleton.ipynb` runs on the selected global Python 3.14 kernel and adds local `src/` explicitly; package tests and CI use uv's isolated environment. Its live smoke switch is false by default.
 
 | Planned notebook | Purpose | Phase |
 | --- | --- | --- |
