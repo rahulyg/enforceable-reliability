@@ -2,7 +2,7 @@
 
 How much numerical reliability can be structurally enforced in an LLM analytical system, what does enforcement cost in usefulness and latency, and which failure modes survive regardless?
 
-This repository contains a proposed design and an evaluation plan. Nothing described below has been implemented or measured yet.
+This repository contains a proposed design and evaluation plan. Phase 0 now includes a deliberately narrow synthetic plumbing demonstration; the proposed experiment itself has not been implemented or measured.
 
 - Arm A: free-form narration.
 - Arm B: structured claims with source references.
@@ -57,7 +57,7 @@ These residual failures remain part of the evaluation. Source traceability alone
 
 A public retail time-series subset will feed seasonal-naive and LightGBM forecasts, rolling-origin backtests, and a deterministic metrics table with addressable source rows. The three answer arms will share evidence and an evaluation interface. Model review and candidate selection provide analytical use cases; the experiment measures answer architectures rather than declaring a universally superior forecasting model. The forecasting layer is deliberately unremarkable and exists to produce real numbers with ground truth.
 
-Status: Phase 0 of 9 — scaffold created; walking skeleton not implemented. No evaluation results yet.
+Status: Phase 0 of 9 — synthetic walking skeleton implemented. No evaluation results yet.
 
 ## Roadmap
 
@@ -86,6 +86,20 @@ make test      # pytest
 make all       # lint, then test
 ```
 
-The package currently contains no implementation and no tests. `make test` reports `no tests collected` and succeeds; it fails on real test failures and on collection errors.
+`make test` is exactly `uv run pytest`; an empty suite fails. The test/CI environment is uv-managed and isolated. Interactive notebook work remains on the selected global Python 3.14 kernel; the notebook adds the local `src/` path and does not use the uv kernel.
+
+Run the deterministic synthetic plumbing path (no network):
+
+```
+uv run python -m reliability.eval.smoke
+```
+
+For one explicit OpenRouter smoke request only, set `OPENROUTER_API_KEY` in your shell or in the ignored repo-root `.env`, then run:
+
+```
+uv run python -m reliability.eval.smoke --live
+```
+
+The live command is a smoke inspection, not a reliability result, evaluation run, or forecast-quality result. It sends one non-streaming request with a 30-second timeout and no retry. The results table remains empty until Phase 7.
 
 See the [design brief](docs/design.md) for the proposed system and evaluation.
