@@ -57,7 +57,10 @@ These residual failures remain part of the evaluation. Source traceability alone
 
 A public retail time-series subset will feed seasonal-naive and LightGBM forecasts, rolling-origin backtests, and a deterministic metrics table with addressable source rows. The three answer arms will share evidence and an evaluation interface. Model review and candidate selection provide analytical use cases; the experiment measures answer architectures rather than declaring a universally superior forecasting model. The forecasting layer is deliberately unremarkable and exists to produce real numbers with ground truth.
 
-Status: Phase 0 of 9 — synthetic walking skeleton implemented. No evaluation results yet.
+Status: Phase 1 contract implementation is in review. The public development
+questions, scoring contract, and seal verifier are committed; sealing the
+held-out ciphertext remains gated on the custodian's supplied public `age`
+recipient. No evaluation results exist.
 
 ## Roadmap
 
@@ -103,3 +106,25 @@ uv run python -m reliability.eval.smoke --live
 The live command is a smoke inspection, not a reliability result, evaluation run, or forecast-quality result. It sends one non-streaming request with a 30-second timeout and no retry. The results table remains empty until Phase 7.
 
 See the [design brief](docs/design.md) for the proposed system and evaluation.
+
+## Phase 1 evaluation contract
+
+The public development set and the pre-output scoring contract live in
+[`questions/`](questions/). The six question classes are lookup, cross-period,
+ranking, multi-step, unanswerable, and trap. There are six public dev questions
+per class; no question contains a numeric gold answer.
+
+Held-out prompts are deliberately absent until they can be sealed to Rahul's
+actual supplied `age` public recipient. The repository must contain held-out
+content only as `questions/heldout/questions.jsonl.age`; its aggregate-only
+manifest is created at the same time. See the [sealing procedure](questions/README.md).
+
+Once sealed, verify without decrypting:
+
+```
+uv run python -m reliability.question_contract
+```
+
+The verifier proves that the committed ciphertext remains unchanged and agrees
+with its internal aggregate manifest. It does not prove prompt quality,
+secrecy, prior contamination, or that the claimed plaintext count is true.

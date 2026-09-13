@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/rahulyg/enforceable-reliability/question.schema.json",
+  "title": "Phase 1 sealed evaluation question",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["question_id", "split", "primary_class", "prompt", "expected_behavior", "required_claims", "scoring_tags", "required_retrieval", "revisions"],
+  "properties": {
+    "question_id": {"type": "string", "pattern": "^q_(dev|heldout)_[a-z0-9]+$"},
+    "split": {"enum": ["dev", "heldout"]},
+    "primary_class": {"enum": ["lookup", "cross_period", "ranking", "multi_step", "unanswerable", "trap"]},
+    "prompt": {"type": "string", "minLength": 1},
+    "expected_behavior": {"enum": ["answer", "abstain"]},
+    "required_claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim_id", "kind", "descriptor"],
+        "properties": {
+          "claim_id": {"type": "string", "pattern": "^claim_[a-z_]+$"},
+          "kind": {"enum": ["value", "comparison", "ranking", "composition", "abstention"]},
+          "descriptor": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "scoring_tags": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "required_retrieval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operation", "scope"],
+      "properties": {
+        "operation": {"enum": ["lookup", "cross_period", "ranking", "multi_step", "notfound", "unsupported"]},
+        "scope": {"type": "string", "minLength": 1}
+      }
+    },
+    "revisions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "rubric", "retrieval_ledger"],
+      "properties": {
+        "schema": {"const": "phase1-question-v1"},
+        "rubric": {"const": "phase1-rubric-v1"},
+        "retrieval_ledger": {"const": "phase1-retrieval-v1"}
+      }
+    }
+  }
+}

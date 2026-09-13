@@ -17,3 +17,9 @@ build/
 dist/
 *.egg-info/
 .DS_Store
+
+# Held-out prompts are never plaintext repository content.  The one permitted
+# tracked artifact is created by the offline sealing procedure in questions/README.md.
+questions/heldout/*
+!questions/heldout/questions.jsonl.age
+!questions/heldout/manifest.json

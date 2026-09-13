@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/rahulyg/enforceable-reliability/heldout-manifest.schema.json",
+  "title": "Phase 1 aggregate-only held-out manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["question_schema_revision", "manifest_schema_revision", "rubric_revision", "seal_process_revision", "cipher_artifact", "cipher_sha256", "total_questions", "counts_by_primary_class", "declared_minimum_per_class", "minimum_met", "sealed_at"],
+  "properties": {
+    "question_schema_revision": {"const": "phase1-question-v1"},
+    "manifest_schema_revision": {"const": "phase1-manifest-v1"},
+    "rubric_revision": {"const": "phase1-rubric-v1"},
+    "seal_process_revision": {"const": "phase1-seal-v1"},
+    "cipher_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "format"],
+      "properties": {
+        "path": {"const": "questions/heldout/questions.jsonl.age"},
+        "format": {"const": "age"}
+      }
+    },
+    "cipher_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "total_questions": {"type": "integer", "minimum": 1},
+    "counts_by_primary_class": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lookup", "cross_period", "ranking", "multi_step", "unanswerable", "trap"],
+      "properties": {
+        "lookup": {"type": "integer", "minimum": 0},
+        "cross_period": {"type": "integer", "minimum": 0},
+        "ranking": {"type": "integer", "minimum": 0},
+        "multi_step": {"type": "integer", "minimum": 0},
+        "unanswerable": {"type": "integer", "minimum": 0},
+        "trap": {"type": "integer", "minimum": 0}
+      }
+    },
+    "declared_minimum_per_class": {"type": "integer", "minimum": 1},
+    "minimum_met": {"type": "boolean"},
+    "sealed_at": {"type": "string", "format": "date-time"}
+  }
+}
