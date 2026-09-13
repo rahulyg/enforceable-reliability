@@ -9,12 +9,7 @@ lint:
 	uv run mypy --strict src/
 
 test:
-	@uv run pytest; code=$$?; \
-	if [ "$$code" -eq 5 ]; then \
-	  echo "Empty suite: no tests collected (pytest exit 5); no tests passed."; \
-	elif [ "$$code" -ne 0 ]; then \
-	  exit "$$code"; \
-	fi
+	uv run pytest
 
 all:
 	$(MAKE) lint
